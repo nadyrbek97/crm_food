@@ -76,7 +76,7 @@ class Status(models.Model):
         return self.name
 
 
-#----------------------------------------------
+#------------------   ----------------------------
 class MealOrders(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
