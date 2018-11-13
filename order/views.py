@@ -84,7 +84,7 @@ class StatusDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class MealOrdersList(generics.ListCreateAPIView):
-    queryset = MealOrders
+    queryset = MealOrders.objects.all()
     serializer_class = MealOrdersSerializer
 
 

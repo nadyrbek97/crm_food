@@ -34,7 +34,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'user', 'table', 'meals')
+        fields = ('id', 'waiter', 'table', 'meals')
 
 
 class ServicePercentageSerializer(serializers.ModelSerializer):
@@ -62,7 +62,7 @@ class MealOrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealOrders
-        fields = ('id', 'order', 'meal')
+        fields = ('id', 'meal', 'order')
 
 
 

@@ -11,3 +11,4 @@ admin.site.register(ServicePercentage)
 admin.site.register(Check)
 admin.site.register(Status)
 admin.site.register(MealOrders)
+

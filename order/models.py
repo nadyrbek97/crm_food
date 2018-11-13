@@ -39,13 +39,13 @@ class Table(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    waiter = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='orders')
     meals = models.ManyToManyField(Meal, through='MealOrders')
 
     def __str__(self):
         return "Order #" + str(self.pk) + "," + self.table.name + \
-               ", Waiter: " + self.user.user.first_name + ", " \
+               ", Waiter: " + self.waiter.user.first_name + ", " \
                 "Meals: " + str(self.meals.name)
 
 
