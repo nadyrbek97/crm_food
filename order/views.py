@@ -8,8 +8,18 @@ class DepartmentList(generics.ListCreateAPIView):
     serializer_class = DepartmentSerializer
 
 
+class DepartmentDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Department
+    serializer_class = DepartmentSerializer
+
+
 class CategoryList(generics.ListCreateAPIView):
     queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category
     serializer_class = CategorySerializer
 
 
@@ -18,8 +28,18 @@ class MealList(generics.ListCreateAPIView):
     serializer_class = MealSerializer
 
 
+class MealDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Meal
+    serializer_class = MealSerializer
+
+
 class TableList(generics.ListCreateAPIView):
     queryset = Table.objects.all()
+    serializer_class = TableSerializer
+
+
+class TableDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Table
     serializer_class = TableSerializer
 
 
@@ -28,7 +48,17 @@ class OrderList(generics.ListCreateAPIView):
     serializer_class = OrderSerializer
 
 
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order
+    serializer_class = OrderSerializer
+
+
 class ServicePercentageList(generics.ListCreateAPIView):
+    queryset = ServicePercentage
+    serializer_class = ServicePercentageSerializer
+
+
+class ServicePercentageDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = ServicePercentage
     serializer_class = ServicePercentageSerializer
 
@@ -38,11 +68,26 @@ class CheckList(generics.ListCreateAPIView):
     serializer_class = CheckSerializer
 
 
+class CheckDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Check
+    serializer_class = CheckSerializer
+
+
 class StatusList(generics.ListCreateAPIView):
     queryset = Status
     serializer_class = StatusSerializer
 
 
+class StatusDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Status
+    serializer_class = StatusSerializer
+
+
 class MealOrdersList(generics.ListCreateAPIView):
+    queryset = MealOrders
+    serializer_class = MealOrdersSerializer
+
+
+class MealOrdersDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MealOrders
     serializer_class = MealOrdersSerializer
