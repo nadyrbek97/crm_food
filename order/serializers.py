@@ -31,6 +31,7 @@ class TableSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    meals = MealSerializer(many=True)
 
     class Meta:
         model = Order
@@ -45,11 +46,24 @@ class ServicePercentageSerializer(serializers.ModelSerializer):
 
 
 class CheckSerializer(serializers.ModelSerializer):
+    total_sum = serializers.SerializerMethodField()
+    #meals = serializers.SerializerMethodField()
+
+    def get_total_sum(self, obj):
+        summ = 0
+        f = obj.order.meals.all().aggregate(Sum('price'))
+        for i in f:
+            summ += int(f.get('price__sum'))
+            return summ
+    #
+    # def get_meals(self, obj):
+    #     meals = obj.order.meals.objects.all()
+    #     return meals
 
     class Meta:
         model = Check
-        fields = ('id', 'order', 'date', 'service_fee')
-
+        fields = ('id', 'order', 'date', 'service_fee', 'total_sum')
+        depth = 0
 
 class StatusSerializer(serializers.ModelSerializer):
 

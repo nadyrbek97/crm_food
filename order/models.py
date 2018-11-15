@@ -1,5 +1,6 @@
 from django.db import models
 from user.models import UserProfile
+from django.db.models import Sum, Count
 
 
 class Department(models.Model):
@@ -60,6 +61,7 @@ class Check(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     date = models.DateTimeField()
     service_fee = models.ForeignKey(ServicePercentage, on_delete=models.CASCADE)
+    total_sum = models.IntegerField(null=True)
 
     def __str__(self):
         return "Check #" + str(self.pk)
@@ -80,9 +82,16 @@ class Status(models.Model):
 class MealOrders(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
+    count = models.IntegerField(null=True)
 
     class Meta:
         verbose_name_plural = 'MealToOrders'
 
+    # def count(self):
+    #
+    #     con = self.order.meals.all().aggregate(c = Count('id'))
+    #     #con = self.order.meals.filter(mealorders__order=self.order).annotate(c=Count('meals'))
+    #     return con
+
     def __str__(self):
-        return "Waiter: " + self.order.user.user.first_name + ", Meal: " + self.meal.name
+        return "Waiter: " + self.order.waiter.user.first_name + ", Meal: " + self.meal.name
