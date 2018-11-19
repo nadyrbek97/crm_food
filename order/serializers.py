@@ -62,6 +62,8 @@ class CheckSerializer(serializers.ModelSerializer):
         fields = ('id', 'order', 'date', 'service_fee', 'total_sum')
         depth = 0
 
+
+
     # def to_representation(self, instance):
     #     representation = super(CheckSerializer, self).to_representation(instance)
     #     representation['meals'] = OrderSerializer(instance.order.meals).data
