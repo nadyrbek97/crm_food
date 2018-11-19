@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import UserProfile
+from user.models import User
 from django.db.models import Sum, Count
 
 
@@ -40,13 +40,13 @@ class Table(models.Model):
 
 
 class Order(models.Model):
-    waiter = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    waiter = models.ForeignKey(User, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.CASCADE, related_name='orders')
     meals = models.ManyToManyField(Meal, through='MealOrders')
 
     def __str__(self):
         return "Order #" + str(self.pk) + "," + self.table.name + \
-               ", Waiter: " + self.waiter.user.first_name + ", " \
+               ", Waiter: " + self.waiter.first_name + ", " \
                 "Meals: " + str(self.meals.name)
 
 
@@ -87,11 +87,5 @@ class MealOrders(models.Model):
     class Meta:
         verbose_name_plural = 'MealToOrders'
 
-    # def count(self):
-    #
-    #     con = self.order.meals.all().aggregate(c = Count('id'))
-    #     #con = self.order.meals.filter(mealorders__order=self.order).annotate(c=Count('meals'))
-    #     return con
-
     def __str__(self):
-        return "Waiter: " + self.order.waiter.user.first_name + ", Meal: " + self.meal.name
+        return "Waiter: " + self.order.waiter.first_name + ", Meal: " + self.meal.name

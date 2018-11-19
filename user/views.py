@@ -9,5 +9,5 @@ class RoleList(generics.ListCreateAPIView):
 
 
 class UserList(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
