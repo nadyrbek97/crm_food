@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'order',
     'user',
     'django.contrib.admin',
@@ -128,3 +129,25 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'user.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+'''
+curl -X POST -d "username=admin&password=admin123" http://127.0.0.1:8000/api/auth/token
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTQzMjIxNTY5LCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.6PSVTRR690_Zi2XjZyIws_94RRt-IsoCEhVkSR231r8
+
+curl -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1LCJ1c2VybmFtZSI6Im5hZHlyYmVrOTciLCJleHAiOjE1NDMyNTYwMDksImVtYWlsIjoibmFkeXJiZWs5N0BnbWFpbC5jb20ifQ.GmE2g3UH9hF6QOGaPclZ8EGfC6HhL-9VH207ZHT15mc
+" http://127.0.0.1:8000/meals
+
+
+'''

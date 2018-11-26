@@ -37,6 +37,14 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'waiter', 'table', 'meals')
 
+    def create(self, validated_data):
+        meals_data = validated_data.pop('meals')
+        
+        order = Order.objects.create(**validated_data)
+        for meals in meals_data:
+            Meal.objects.create(order=order, **meals)
+        return order
+
 
 class ServicePercentageSerializer(serializers.ModelSerializer):
 
@@ -48,7 +56,7 @@ class ServicePercentageSerializer(serializers.ModelSerializer):
 class CheckSerializer(serializers.ModelSerializer):
     #order = OrderSerializer()
     total_sum = serializers.SerializerMethodField()
-    #meals = serializers.PrimaryKeyRelatedField(queryset=Order.objects.all())
+    meals = serializers.SerializerMethodField()
 
     def get_total_sum(self, obj):
         summ = 0
@@ -57,17 +65,15 @@ class CheckSerializer(serializers.ModelSerializer):
             summ += meal_order.count * meal_order.meal.price
         return summ
 
+    def get_meals(self, obj):
+        meal_order = Meal.objects.filter(order=obj.order)
+        serializer = MealSerializer(meal_order, many=True)
+        print(serializer)
+        return serializer.data
+
     class Meta:
         model = Check
-        fields = ('id', 'order', 'date', 'service_fee', 'total_sum')
-        depth = 0
-
-
-
-    # def to_representation(self, instance):
-    #     representation = super(CheckSerializer, self).to_representation(instance)
-    #     representation['meals'] = OrderSerializer(instance.order.meals).data
-    #     return representation
+        fields = ('id', 'order', 'date', 'service_fee', 'total_sum', 'meals')
 
 
 class StatusSerializer(serializers.ModelSerializer):
