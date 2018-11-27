@@ -42,7 +42,8 @@ class OrderSerializer(serializers.ModelSerializer):
         
         order = Order.objects.create(**validated_data)
         for meals in meals_data:
-            Meal.objects.create(order=order, **meals)
+            m = Meal.objects.create(order=order, **meals)
+            MealOrders.objects.create(order=order, meal=m)
         return order
 
 
@@ -54,7 +55,6 @@ class ServicePercentageSerializer(serializers.ModelSerializer):
 
 
 class CheckSerializer(serializers.ModelSerializer):
-    #order = OrderSerializer()
     total_sum = serializers.SerializerMethodField()
     meals = serializers.SerializerMethodField()
 
@@ -87,7 +87,7 @@ class MealOrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealOrders
-        fields = ('id', 'meal', 'order')
+        fields = ('id', 'meal', 'order', 'count')
 
 
 

@@ -82,7 +82,7 @@ class Status(models.Model):
 class MealOrders(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE)
-    count = models.IntegerField(null=True)
+    count = models.IntegerField(null=True, default=1)
 
     class Meta:
         verbose_name_plural = 'MealToOrders'
