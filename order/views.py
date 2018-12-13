@@ -27,6 +27,14 @@ class MealList(generics.ListCreateAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
+    #filtering in serializers
+    # def get_queryset(self,*args, **kwargs):
+    #     queryset_list = Meal.objects.all()
+    #     query = self.request.GET.get("q")
+    #     if query:
+    #         queryset_list = queryset_list.filter(name__icontains=query).distinct()
+    #     return queryset_list
+
 
 class MealDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Meal
@@ -91,3 +99,9 @@ class MealOrdersList(generics.ListCreateAPIView):
 class MealOrdersDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = MealOrders
     serializer_class = MealOrdersSerializer
+
+
+#Permissions in DRF
+# from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny, IsAuthenticatedOrReadOnly
+#     permission_class = [IsAuthenticatedOrReadOnly]
+

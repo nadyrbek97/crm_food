@@ -23,6 +23,24 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'category', 'price', 'description')
 
 
+class MealRepresentationSerializer(serializers.BaseSerializer):
+
+    count = serializers.SerializerMethodField()
+
+    def get_count(self, obj):
+        meal_count = MealOrders.objects.filter(meal=obj.meal)
+        count = meal_count.count
+        print(count)
+        return count
+
+    def to_representation(self, obj):
+        return {
+            'id': obj.id,
+            'name': obj.name,
+            'count': obj.count
+        }
+
+
 class TableSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -31,7 +49,7 @@ class TableSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    meals = MealSerializer(many=True)
+    meals = MealRepresentationSerializer(many=True)
 
     class Meta:
         model = Order
@@ -39,7 +57,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         meals_data = validated_data.pop('meals')
-        
+
         order = Order.objects.create(**validated_data)
         for meals in meals_data:
             m = Meal.objects.create(order=order, **meals)
@@ -88,7 +106,3 @@ class MealOrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealOrders
         fields = ('id', 'meal', 'order', 'count')
-
-
-
-

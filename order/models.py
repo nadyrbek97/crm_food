@@ -26,6 +26,14 @@ class Meal(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='meals')
     price = models.IntegerField()
     description = models.TextField(max_length=800)
+    count = models.IntegerField(null=True, default=1)
+    # def __init__(self, name, category, price, description, count):
+    #     models.Model.__init__(self)
+    #     self.name = name
+    #     self.category = category
+    #     self.price = price
+    #     self.description = description
+    #     self.count = count
 
     def __str__(self):
         return self.name
