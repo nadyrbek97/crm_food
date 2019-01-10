@@ -23,24 +23,6 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'category', 'price', 'description')
 
 
-# class MealRepresentationSerializer(serializers.BaseSerializer):
-#
-#     count = serializers.SerializerMethodField()
-#
-#     def get_count(self, obj):
-#         meal_count = MealOrders.objects.filter(meal=obj.meal)
-#         count = meal_count.count
-#         print(count)
-#         return count
-#
-#     def to_representation(self, obj):
-#         return {
-#             'id': obj.id,
-#             'name': obj.name,
-#             'count': obj.count
-#         }
-
-
 class TableSerializer(serializers.ModelSerializer):
 
     class Meta:

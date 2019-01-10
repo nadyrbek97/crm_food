@@ -1,13 +1,3 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.env
 /venv
-.idea/dataSources.local.xml
-.idea/workspace.xml
-crm_food/__pycache__/
-order/__pycache__/
-order/migrations/0001_initial.py
-order/migrations/__pycache__/
-templates/
-user/__pycache__/
-user/migrations/0001_initial.py
-user/migrations/__pycache__/
