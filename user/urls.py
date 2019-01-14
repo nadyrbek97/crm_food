@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 from user import views
-from .views import logout,register_view,login_view
+from .views import logout, register_view, login_view
 
 urlpatterns = [
     path('users/login/', login_view),

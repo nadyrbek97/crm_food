@@ -54,6 +54,7 @@ class OrderSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # here we are taking out parameters of meal_order object
         meals_data = validated_data.pop('meals')
+        print(meals_data)
         # print(meals_data['count'])
         print(validated_data)
         # we have to create order object with **validated_data
